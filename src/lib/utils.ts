@@ -65,10 +65,10 @@ export const CloudinaryTheme = {
 };
 
 export const meta = {
-	title: "Whatsapp Clone",
-	description: "A responsive and modern real-time whatsapp clone made with Next.js, Pusher, and Prisma.",
-	keywords: ["Whatsapp", "Clone", "Next.js", "Pusher", "Prisma"],
-	authors: [{ name: "FallenDeity" }],
+	title: "HieroGlyph",
+	description: "A responsive and modern real-time HieroGlyph chat App made with Next.js, Pusher, and Prisma.",
+	keywords: ["Amethysts Of Amneti", "HieroGlyph"],
+	authors: [{ name: "Amethysts Of Amenti" }],
 	metadataBase: new URL(String(process.env.NEXT_PUBLIC_BASE_URL)),
 	robots: {
 		follow: true,
@@ -76,8 +76,8 @@ export const meta = {
 		nocache: true,
 	},
 	openGraph: {
-		title: "Whatsapp Clone",
-		description: "A responsive and modern real-time whatsapp clone made with Next.js, Pusher, and Prisma.",
+		title: "HieroGlyph",
+		description: "A responsive and modern real-time HieroGlyph chat App made with Next.js, Pusher, and Prisma.",
 		images: "/logo.png",
 		type: "website",
 	},
