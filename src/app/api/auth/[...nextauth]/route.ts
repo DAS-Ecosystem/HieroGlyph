@@ -32,14 +32,6 @@ export const authOptions: AuthOptions = {
 				password: { label: "password", type: "password" },
 			},
 			async authorize(credentials) {
- // ✅ Dummy test account
-        if (
-          credentials?.email === "test@hiero.com" &&
-          credentials?.password === "password123"
-        ) {
-          return { id: "1", name: "Test User", email: "test@hiero.com" };
-        }
-        return null; // login fails otherwise
 				
 				if (!credentials?.email || !credentials.password) {
 					throw new Error("Invalid credentials");
