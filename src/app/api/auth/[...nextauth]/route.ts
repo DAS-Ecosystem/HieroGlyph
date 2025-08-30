@@ -59,46 +59,5 @@ export const authOptions: AuthOptions = {
 };
 
 const handler = NextAuth(authOptions);
-import NextAuth from "next-auth";
-import CredentialsProvider from "next-auth/providers/credentials";
-import GoogleProvider from "next-auth/providers/google";
-import GitHubProvider from "next-auth/providers/github";
-
-export const authOptions = {
-  providers: [
-    CredentialsProvider({
-      name: "Credentials",
-      credentials: {
-        email: { label: "Email", type: "text", placeholder: "dummy@example.com" },
-        password: { label: "Password", type: "password" },
-      },
-      async authorize(credentials) {
-        // ✅ Dummy test account
-        if (
-          credentials?.email === "test@hiero.com" &&
-          credentials?.password === "password123"
-        ) {
-          return { id: "1", name: "Test User", email: "test@hiero.com" };
-        }
-        return null; // login fails otherwise
-      },
-    }),
-    GoogleProvider({
-      clientId: process.env.GOOGLE_CLIENT_ID!,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
-    }),
-    GitHubProvider({
-      clientId: process.env.GITHUB_ID!,
-      clientSecret: process.env.GITHUB_SECRET!,
-    }),
-  ],
-  secret: process.env.NEXTAUTH_SECRET,
-  pages: {
-    signIn: "/auth/signin", // adjust if you have a custom signin page
-  },
-};
-
-const handler = NextAuth(authOptions);
-export { handler as GET, handler as POST };
 
 export { handler as GET, handler as POST };
