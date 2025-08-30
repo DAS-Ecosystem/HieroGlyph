@@ -3,7 +3,6 @@ import dynamic from "next/dynamic";
 
 import { meta } from "@/lib/utils";
 
-// Dynamically import AuthForm to prevent SSR errors
 const AuthForm = dynamic(() => import("@/components/AuthForm"), { ssr: false });
 
 export const metadata: Metadata = meta;
