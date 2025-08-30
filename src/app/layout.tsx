@@ -11,13 +11,7 @@ import { RecoilRoot } from "recoil";
 import ActiveStatus from "@/components/ActiveContext";
 
 const inter = Inter({ subsets: ["latin"] });
-export const metadata = {
-  title: "HieroGlyph",
-  description: "Secure messaging powered by HieroGlyph",
-  icons: {
-    icon: "/favicon.ico",  // or /favicon.png
-  },
-};
+
 export default function RootLayout({ children }: { children: React.ReactNode }): React.JSX.Element {
 	return (
 		<html lang="en">
