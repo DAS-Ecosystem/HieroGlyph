@@ -23,12 +23,8 @@ model User {
   updatedAt        DateTime @updatedAt
   lastSeen         DateTime? @default(now())
 
+  // Arrays of ObjectIds, handled manually
   conversationIds  String[] @db.ObjectId
-  conversations    Conversation[] // Relation managed manually
-
-  
-  // No relation here for MongoDB
-
   accounts         Account[]
   messages         Message[]
 }
@@ -62,12 +58,9 @@ model Conversation {
   logo           String?
 
   messagesIds    String[] @db.ObjectId
-  messages       Message[]
-
   userIds        String[] @db.ObjectId
-  users          User[] // Relation managed manually
 }
-
+  
 model Message {
   id             String   @id @default(auto()) @map("_id") @db.ObjectId
   body           String?
@@ -76,10 +69,8 @@ model Message {
   type           String?
   createdAt      DateTime @default(now())
 
-  seenIds        String[] @db.ObjectId  // just store user IDs manually
+  seenIds        String[] @db.ObjectId  // store user IDs manually
 
   conversationId String   @db.ObjectId
   senderId       String   @db.ObjectId
 }
-
-
