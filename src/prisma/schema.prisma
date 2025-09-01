@@ -76,9 +76,10 @@ model Message {
   type           String?
   createdAt      DateTime @default(now())
 
-  seenIds        String[] @db.ObjectId  // remove @relation, store user IDs manually
+  seenIds        String[] @db.ObjectId  // just store user IDs manually
 
   conversationId String   @db.ObjectId
   senderId       String   @db.ObjectId
 }
+
 
