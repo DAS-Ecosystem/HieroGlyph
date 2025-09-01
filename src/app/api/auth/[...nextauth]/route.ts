@@ -59,10 +59,10 @@ export const authOptions: AuthOptions = {
 	},
 	secret: process.env.NEXTAUTH_SECRET,
 callbacks: {
-  async redirect({ baseUrl }) {
+  async redirect({ url: _url, baseUrl }) {
     return baseUrl;
   },
-  async session({ session }) {
+  async session({ session, token: _token }) {
     return session;
   },
   async jwt({ token, account }) {
