@@ -24,15 +24,18 @@ model User {
   lastSeen         DateTime? @default(now())
 
   conversationIds  String[] @db.ObjectId
+  conversations    Conversation[] // Relation managed manually
+
   seenMessageIds   String[] @db.ObjectId
+  // No relation here for MongoDB
 
   accounts         Account[]
   messages         Message[]
 }
 
 model Account {
-  id                 String   @id @default(auto()) @map("_id") @db.ObjectId
-  userId             String   @db.ObjectId
+  id                 String @id @default(auto()) @map("_id") @db.ObjectId
+  userId             String @db.ObjectId
   type               String
   provider           String
   providerAccountId  String
@@ -42,7 +45,7 @@ model Account {
   expires_at         Int?
   token_type         String?
   scope              String?
-  id_token           String?  @db.String
+  id_token           String? @db.String
   session_state      String?
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
@@ -51,15 +54,18 @@ model Account {
 }
 
 model Conversation {
-  id           String   @id @default(auto()) @map("_id") @db.ObjectId
-  createdAt    DateTime @default(now())
-  lastMessageAt DateTime @default(now())
-  name         String?
-  isGroup      Boolean?
-  logo         String?
+  id             String   @id @default(auto()) @map("_id") @db.ObjectId
+  createdAt      DateTime @default(now())
+  lastMessageAt  DateTime @default(now())
+  name           String?
+  isGroup        Boolean?
+  logo           String?
 
-  messageIds   String[] @db.ObjectId
-  userIds      String[] @db.ObjectId
+  messagesIds    String[] @db.ObjectId
+  messages       Message[]
+
+  userIds        String[] @db.ObjectId
+  users          User[] // Relation managed manually
 }
 
 model Message {
@@ -70,7 +76,7 @@ model Message {
   type           String?
   createdAt      DateTime @default(now())
 
-  seenIds        String[] @db.ObjectId
+  seenIds        String[] @db.ObjectId  // store user IDs who have seen the message
 
   conversationId String   @db.ObjectId
   senderId       String   @db.ObjectId
