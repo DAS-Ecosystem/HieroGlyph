@@ -1,3 +1,6 @@
+// This is your Prisma schema file
+// Learn more: https://pris.ly/d/prisma-schema
+
 generator client {
   provider = "prisma-client-js"
 }
@@ -8,39 +11,38 @@ datasource db {
 }
 
 model User {
-  id              String    @id @default(auto()) @map("_id") @db.ObjectId
-  name            String?
-  email           String?   @unique
-  emailVerified   DateTime?
+  id               String   @id @default(auto()) @map("_id") @db.ObjectId
+  name             String?
+  email            String?  @unique
+  emailVerified    Boolean? @default(true)
   verificationCode String?  @default("")
-  hashedPassword  String?
-  image           String?   @default("")
-  about           String?   @default("Hey there! I am using HieroGlyph")
-  createdAt       DateTime  @default(now())
-  updatedAt       DateTime  @updatedAt
-  lastSeen        DateTime? @default(now())
+  hashedPassword   String?
+  image            String?  @default("")
+  about            String?  @default("Hey there! I am using HieroGlyph")
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+  lastSeen         DateTime? @default(now())
 
-  accounts Account[]
-  sessions Session[]
-  messages Message[]
+  conversationIds  String[] @db.ObjectId
+  seenMessageIds   String[] @db.ObjectId
 
-  conversationIds String[] @db.ObjectId
-  seenMessageIds String[] @db.ObjectId
+  accounts         Account[]
+  messages         Message[]
 }
 
 model Account {
-  id String @id @default(auto()) @map("_id") @db.ObjectId
+  id                 String   @id @default(auto()) @map("_id") @db.ObjectId
   userId             String   @db.ObjectId
   type               String
   provider           String
   providerAccountId  String
-  refresh_token      String?
+  refresh_token      String?  @db.String
   refresh_token_expires_in Int?
-  access_token       String?
+  access_token       String?  @db.String
   expires_at         Int?
   token_type         String?
   scope              String?
-  id_token           String?
+  id_token           String?  @db.String
   session_state      String?
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
@@ -48,48 +50,28 @@ model Account {
   @@unique([provider, providerAccountId])
 }
 
-model Session {
-  id           String   @id @default(auto()) @map("_id") @db.ObjectId
-  sessionToken String   @unique
-  userId       String
-  expires      DateTime
-
-  user User @relation(fields: [userId], references: [id])
-}
-
-model VerificationToken {
-  identifier String
-  token      String   @unique
-  expires    DateTime
-
-  @@unique([identifier, token])
-}
-
 model Conversation {
-  id String @id @default(auto()) @map("_id") @db.ObjectId
-  createdAt       DateTime @default(now())
-  lastMessageAt   DateTime @default(now())
-  name            String?
-  isGroup         Boolean?
-  logo            String?
+  id           String   @id @default(auto()) @map("_id") @db.ObjectId
+  createdAt    DateTime @default(now())
+  lastMessageAt DateTime @default(now())
+  name         String?
+  isGroup      Boolean?
+  logo         String?
 
-  messages Message[]
-  users    User[] @relation("UserConversations", references: [id])
+  messageIds   String[] @db.ObjectId
+  userIds      String[] @db.ObjectId
 }
 
 model Message {
-  id String @id @default(auto()) @map("_id") @db.ObjectId
-  body String?
-  image String?
-  audio String?
-  type String?
-  createdAt DateTime @default(now())
+  id             String   @id @default(auto()) @map("_id") @db.ObjectId
+  body           String?
+  image          String?
+  audio          String?
+  type           String?
+  createdAt      DateTime @default(now())
 
-  conversationId String @db.ObjectId
-  conversation Conversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+  seenIds        String[] @db.ObjectId
 
-  senderId String @db.ObjectId
-  sender User @relation(fields: [senderId], references: [id], onDelete: Cascade)
-
-  seen User[] @relation("Seen", references: [id])
+  conversationId String   @db.ObjectId
+  senderId       String   @db.ObjectId
 }
