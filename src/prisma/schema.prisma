@@ -23,8 +23,9 @@ model User {
   accounts Account[]
   sessions Session[]
   messages Message[]
-  conversations Conversation[] @relation("UserConversations", references: [id])
-  seenMessages Message[] @relation("Seen", references: [id])
+
+  conversationIds String[] @db.ObjectId
+  seenMessageIds String[] @db.ObjectId
 }
 
 model Account {
