@@ -5,6 +5,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable prettier/prettier */
+/* eslint-disable @typescript-eslint/require-await */
 
 
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
