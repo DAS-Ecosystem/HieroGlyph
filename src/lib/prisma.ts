@@ -3,9 +3,15 @@
 import { PrismaClient } from "@prisma/client";
 
 const globalForPrisma = globalThis as unknown as {
-	prisma: PrismaClient | undefined;
+  prisma: PrismaClient | undefined;
 };
 
-export const prisma = globalForPrisma.prisma ?? new PrismaClient();
+// Create Prisma client and optionally log queries/errors
+export const prisma =
+  globalForPrisma.prisma ??
+  new PrismaClient({
+    log: ["query", "error", "warn"], // helpful for debugging in production
+  });
 
+// Avoid creating multiple clients in development (hot reload)
 if (process.env.NODE_ENV !== "production") globalForPrisma.prisma = prisma;
