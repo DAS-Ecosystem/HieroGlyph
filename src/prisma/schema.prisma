@@ -26,7 +26,7 @@ model User {
   conversationIds  String[] @db.ObjectId
   conversations    Conversation[] // Relation managed manually
 
-  seenMessageIds   String[] @db.ObjectId
+  
   // No relation here for MongoDB
 
   accounts         Account[]
@@ -76,8 +76,9 @@ model Message {
   type           String?
   createdAt      DateTime @default(now())
 
-  seenIds        String[] @db.ObjectId  // store user IDs who have seen the message
+  seenIds        String[] @db.ObjectId  // remove @relation, store user IDs manually
 
   conversationId String   @db.ObjectId
   senderId       String   @db.ObjectId
 }
+
