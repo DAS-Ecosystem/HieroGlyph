@@ -60,9 +60,9 @@ export const authOptions: AuthOptions = {
 	},
 	secret: process.env.NEXTAUTH_SECRET,
 callbacks: {
-  // eslint-disable-next-line @typescript-eslint/require-await
-  async redirect({ url, baseUrl }) {
-    return url.startsWith(baseUrl) ? url : baseUrl;
+  redirect({ url, baseUrl }) {
+    if (url.startsWith(baseUrl)) return url;
+    return baseUrl;
   },
   // eslint-disable-next-line @typescript-eslint/require-await
   async session({ session }) {
@@ -73,7 +73,7 @@ callbacks: {
     if (account) token.account = account;
     return token;
   },
-},
+}
 
 
 };
