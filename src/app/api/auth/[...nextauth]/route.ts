@@ -63,10 +63,11 @@ callbacks: {
     if (url.startsWith(baseUrl)) return url;
     return baseUrl;
   },
-  session({ session }) {
+  async session({ session }) {
+    // `token` is removed since not used
     return session;
   },
-  jwt({ token, account }) {
+  async jwt({ token, account }) {
     if (account) token.account = account;
     return token;
   },
