@@ -60,20 +60,21 @@ export const authOptions: AuthOptions = {
 	},
 	secret: process.env.NEXTAUTH_SECRET,
 callbacks: {
-  redirect({ url, baseUrl }) {
-    // Only allow URLs on your own domain
-    if (url.startsWith(baseUrl)) return url;
-    return baseUrl;
+  // eslint-disable-next-line @typescript-eslint/require-await
+  async redirect({ url, baseUrl }) {
+    return url.startsWith(baseUrl) ? url : baseUrl;
   },
-  session({ session }) {
-    // token was removed on purpose — same as before
+  // eslint-disable-next-line @typescript-eslint/require-await
+  async session({ session }) {
     return session;
   },
-  jwt({ token, account }) {
+  // eslint-disable-next-line @typescript-eslint/require-await
+  async jwt({ token, account }) {
     if (account) token.account = account;
     return token;
   },
 },
+
 
 };
 
