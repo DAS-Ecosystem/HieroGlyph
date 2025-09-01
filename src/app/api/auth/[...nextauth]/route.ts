@@ -73,6 +73,7 @@ callbacks: {
   },
 },
 
+
 };
 
 const handler = NextAuth(authOptions);
