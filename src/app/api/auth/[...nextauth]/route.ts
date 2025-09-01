@@ -59,7 +59,9 @@ export const authOptions: AuthOptions = {
 	},
 	secret: process.env.NEXTAUTH_SECRET,
 callbacks: {
-  async redirect({ url: _url, baseUrl }) {
+  async redirect({ url, baseUrl }) {
+    // Only allow URLs on your own domain
+    if (url.startsWith(baseUrl)) return url;
     return baseUrl;
   },
   async session({ session, token: _token }) {
