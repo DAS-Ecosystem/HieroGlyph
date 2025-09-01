@@ -58,6 +58,22 @@ export const authOptions: AuthOptions = {
 		strategy: "jwt",
 	},
 	secret: process.env.NEXTAUTH_SECRET,
+	callbacks: {
+  async redirect({ url, baseUrl }) {
+    // Always redirect to the homepage after login
+    return baseUrl;
+  },
+  async session({ session, token }) {
+    // Return session object (required for JWT strategy)
+    return session;
+  },
+  async jwt({ token, account }) {
+    // Optional: attach account info to token for debugging
+    if (account) token.account = account;
+    return token;
+  },
+},
+
 };
 
 const handler = NextAuth(authOptions);
