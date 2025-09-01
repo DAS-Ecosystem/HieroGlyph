@@ -6,6 +6,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable prettier/prettier */
 
+
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import bcrypt from "bcrypt";
 import NextAuth, { AuthOptions } from "next-auth";
